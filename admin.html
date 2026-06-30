@@ -2,6 +2,14 @@
 <html lang="en-PH">
 <head>
 <meta charset="UTF-8">
+<script>
+  (function () {
+    var savedTheme = localStorage.getItem("theme");
+    var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", initialTheme);
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Control Dashboard — Lasa Sugbo</title>
 <meta name="description" content="Administrative control center node and database registry dashboard portal for Lasa Sugbo.">
@@ -26,7 +34,7 @@
 <noscript><link rel="stylesheet" href="css/style.min.css"></noscript>
 <style>
   .admin-lockscreen {
-    background: #ede5d4;
+    background: var(--bg-secondary);
     min-height: 80vh;
     display: flex;
     align-items: center;
@@ -65,7 +73,7 @@
   /* High-Readability Native Table System (Zero Horizontal Scrolling) */
   .native-table-card {
     width: 100%;
-    background: var(--color-white);
+    background: var(--bg-card);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
     border: 1px solid var(--border-color-strong);
@@ -211,7 +219,7 @@
 
         <!-- Lower Panel: Native, Scroll-Free Data Registry Table Card -->
         <div class="native-table-card">
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(43,33,24,0.1); padding-bottom:0.75rem; margin-bottom: 1rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:0.75rem; margin-bottom: 1rem;">
             <h2 style="font-family:'Space Mono', monospace; font-size: 0.75rem; text-transform:uppercase; color: var(--text-primary); margin: 0; font-weight:700;">Live Feed Registry Streams</h2>
             <span id="sync-indicator" style="font-size:0.75rem; font-family:'Space Mono', monospace; color: #2e7d32; font-weight: 700;">● Synchronized</span>
           </div>
@@ -379,6 +387,6 @@ document.addEventListener('DOMContentLoaded', () => {
     dataTbody.innerHTML = htmlContent || `<tr><td colspan="7" style="text-align:center; padding:2rem;">No responses found in active sheet registry.</td></tr>`;
   }
 });
-</script>
+<script src="js/script.js" defer></script>
 </body>
 </html>
