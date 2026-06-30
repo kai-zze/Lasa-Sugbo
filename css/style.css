@@ -766,7 +766,8 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
   text-align: left;
 }
 
-.footer-brand-col {
+.footer-brand-col,
+.footer-brand {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
