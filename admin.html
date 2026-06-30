@@ -245,6 +245,113 @@
           </div>
         </div>
 
+        <!-- ============================================================
+             PUBLISH TO FOOD GUIDE PANEL
+             ============================================================ -->
+        <div style="margin-top: var(--space-2xl);">
+
+          <!-- Section Header -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--space-xl);">
+            <div>
+              <p class="eyebrow" style="color: var(--accent-secondary)">Content Management</p>
+              <h2 style="font-family: var(--font-display); font-size: var(--fs-2xl); margin-top: var(--space-xs);">Publish to Food Guide</h2>
+              <p style="color: var(--text-secondary); margin-top: var(--space-sm); font-size: var(--fs-sm); max-width: 65ch;">Add a new culinary entry to the public-facing Cebu food guide. Published entries are saved locally and displayed as live preview cards below.</p>
+            </div>
+          </div>
+
+          <!-- Add Entry Form Card -->
+          <div class="native-table-card" style="margin-bottom: var(--space-xl);">
+            <div style="display:flex; align-items:center; gap: var(--space-sm); border-bottom:1px solid var(--border-color); padding-bottom:0.75rem; margin-bottom: 1.5rem;">
+              <span style="font-family:'Space Mono', monospace; font-size: 0.75rem; text-transform:uppercase; color: var(--text-primary); font-weight:700;">New Entry Form</span>
+            </div>
+
+            <form id="food-guide-publish-form">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+
+                <!-- Dish Name -->
+                <div>
+                  <label for="fg-dish-name" style="display:block; font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary); margin-bottom:var(--space-xs);">Dish Name *</label>
+                  <input type="text" id="fg-dish-name" class="admin-input-field" placeholder="e.g. Lechon de Cebu" required style="margin:0;">
+                </div>
+
+                <!-- Category -->
+                <div>
+                  <label for="fg-category" style="display:block; font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary); margin-bottom:var(--space-xs);">Category *</label>
+                  <select id="fg-category" class="admin-input-field" required style="margin:0; cursor:pointer;">
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="Main Dish">Main Dish</option>
+                    <option value="Street Food">Street Food</option>
+                    <option value="Seafood">Seafood</option>
+                    <option value="Snack">Snack</option>
+                    <option value="Pasalubong">Pasalubong</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Beverage">Beverage</option>
+                  </select>
+                </div>
+
+                <!-- Description -->
+                <div style="grid-column: 1 / -1;">
+                  <label for="fg-description" style="display:block; font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary); margin-bottom:var(--space-xs);">Description *</label>
+                  <textarea id="fg-description" class="admin-input-field" rows="3" placeholder="Describe the dish, its origins, and what makes it special..." required style="margin:0; resize:vertical; font-family:var(--font-body); line-height:1.6;"></textarea>
+                </div>
+
+                <!-- Flavor Profile -->
+                <div>
+                  <label for="fg-flavor" style="display:block; font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary); margin-bottom:var(--space-xs);">Flavor Profile *</label>
+                  <input type="text" id="fg-flavor" class="admin-input-field" placeholder="e.g. Smoky, crispy, savory with rich fat" required style="margin:0;">
+                </div>
+
+                <!-- Price Range -->
+                <div>
+                  <label for="fg-price" style="display:block; font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary); margin-bottom:var(--space-xs);">Price Range *</label>
+                  <select id="fg-price" class="admin-input-field" required style="margin:0; cursor:pointer;">
+                    <option value="" disabled selected>Select price range</option>
+                    <option value="Under ₱50">Under ₱50</option>
+                    <option value="₱50 – ₱150">₱50 – ₱150</option>
+                    <option value="₱150 – ₱300">₱150 – ₱300</option>
+                    <option value="₱300 – ₱500">₱300 – ₱500</option>
+                    <option value="₱500 and above">₱500 and above</option>
+                  </select>
+                </div>
+
+                <!-- Recommended Locations -->
+                <div style="grid-column: 1 / -1;">
+                  <label for="fg-locations" style="display:block; font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary); margin-bottom:var(--space-xs);">Recommended Locations *</label>
+                  <input type="text" id="fg-locations" class="admin-input-field" placeholder="e.g. Zubuchon, CNT Lechon, Lydia's Lechon — Colon St, Cebu City" required style="margin:0;">
+                </div>
+
+              </div>
+
+              <!-- Form Error -->
+              <div id="fg-form-error" style="display:none; margin-top:var(--space-md); padding: var(--space-sm) var(--space-md); background:rgba(168,64,29,0.1); border:1px solid var(--accent); border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:var(--fs-xs); color:var(--accent); font-weight:700;"></div>
+
+              <!-- Submit Button -->
+              <div style="display:flex; justify-content:flex-end; margin-top: var(--space-xl);">
+                <button type="submit" class="btn btn-primary" id="fg-submit-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                  Publish Entry
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Published Entries Grid -->
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--space-lg);">
+              <h3 style="font-family:var(--font-mono); font-size:var(--fs-xs); text-transform:uppercase; letter-spacing:0.12em; color:var(--text-secondary); margin:0;">Published Entries &mdash; <span id="fg-entry-count" style="color:var(--accent-secondary);">0 entries</span></h3>
+              <button id="fg-clear-all-btn" class="btn btn-secondary btn-sm" style="display:none;">Clear All</button>
+            </div>
+            <div id="fg-entries-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-lg);">
+              <!-- Empty state -->
+              <div id="fg-empty-state" style="grid-column: 1 / -1; text-align:center; padding: var(--space-2xl); background:var(--bg-secondary); border-radius:var(--radius-md); border: 1px dashed var(--border-color-strong);">
+                <p style="font-family:var(--font-mono); font-size:var(--fs-xs); color:var(--text-secondary);">No entries published yet. Use the form above to add your first food guide entry.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- END: PUBLISH TO FOOD GUIDE PANEL -->
+
       </div>
     </section>
   </div>
@@ -383,6 +490,164 @@ document.addEventListener('DOMContentLoaded', () => {
     dataTbody.innerHTML = htmlContent || `<tr><td colspan="7" style="text-align:center; padding:2rem;">No responses found in active sheet registry.</td></tr>`;
   }
 });
+</script>
+
+<script>
+// ============================================================
+// FOOD GUIDE PUBLISH MANAGER
+// ============================================================
+(function () {
+  const STORAGE_KEY = 'lasasugbo_food_guide_entries';
+
+  function getEntries() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveEntries(entries) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  }
+
+  function categoryColor(cat) {
+    const map = {
+      'Main Dish':   '#a8401d',
+      'Street Food': '#1f6f6b',
+      'Seafood':     '#1a5a8a',
+      'Snack':       '#9e671d',
+      'Pasalubong':  '#6b4a1f',
+      'Dessert':     '#8a3872',
+      'Beverage':    '#2e7d32',
+    };
+    return map[cat] || '#5a4a3e';
+  }
+
+  function renderCard(entry) {
+    const color = categoryColor(entry.category);
+    return `
+      <article style="background:var(--bg-card); border:1px solid var(--border-color-strong); border-radius:var(--radius-lg); padding:var(--space-xl); display:flex; flex-direction:column; gap:var(--space-md); box-shadow:var(--shadow-md); position:relative;">
+
+        <!-- Category badge -->
+        <span style="align-self:flex-start; font-family:var(--font-mono); font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; padding:0.25em 0.75em; border-radius:9999px; background:${color}22; color:${color}; border:1px solid ${color}55;">${entry.category}</span>
+
+        <!-- Title -->
+        <h3 style="font-family:var(--font-display); font-size:var(--fs-xl); color:var(--text-primary); margin:0; line-height:1.2;">${entry.dishName}</h3>
+
+        <!-- Description -->
+        <p style="font-size:var(--fs-sm); color:var(--text-secondary); line-height:1.7; margin:0;">${entry.description}</p>
+
+        <!-- Details -->
+        <div style="display:flex; flex-direction:column; gap:var(--space-sm); padding-top:var(--space-sm); border-top:1px solid var(--border-color);">
+          <div>
+            <span style="font-family:var(--font-mono); font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary);">Flavor Profile</span>
+            <p style="margin:2px 0 0; font-size:var(--fs-sm); color:var(--text-primary);">${entry.flavorProfile}</p>
+          </div>
+          <div>
+            <span style="font-family:var(--font-mono); font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary);">Recommended Locations</span>
+            <p style="margin:2px 0 0; font-size:var(--fs-sm); color:var(--text-primary);">${entry.locations}</p>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:var(--space-xs);">
+            <span style="font-family:var(--font-mono); font-size:var(--fs-xs); color:var(--accent-gold); font-weight:700;">${entry.priceRange}</span>
+            <span style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-secondary);">${new Date(entry.id).toLocaleDateString('en-PH', {month:'short', day:'numeric', year:'numeric'})}</span>
+          </div>
+        </div>
+
+        <!-- Delete button -->
+        <button onclick="window.__fgDeleteEntry(${entry.id})" style="position:absolute; top:var(--space-md); right:var(--space-md); background:transparent; border:none; cursor:pointer; color:var(--text-secondary); padding:4px; border-radius:var(--radius-sm); transition:color 0.2s;" title="Remove entry" aria-label="Remove ${entry.dishName}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </article>`;
+  }
+
+  function renderAll() {
+    const entries = getEntries();
+    const grid = document.getElementById('fg-entries-grid');
+    const emptyState = document.getElementById('fg-empty-state');
+    const countEl = document.getElementById('fg-entry-count');
+    const clearBtn = document.getElementById('fg-clear-all-btn');
+    if (!grid) return;
+
+    // Remove all cards (keep empty state)
+    Array.from(grid.querySelectorAll('article')).forEach(el => el.remove());
+
+    if (entries.length === 0) {
+      emptyState.style.display = 'block';
+      countEl.textContent = '0 entries';
+      clearBtn.style.display = 'none';
+    } else {
+      emptyState.style.display = 'none';
+      countEl.textContent = entries.length + (entries.length === 1 ? ' entry' : ' entries');
+      clearBtn.style.display = 'inline-flex';
+      entries.forEach(entry => {
+        grid.insertAdjacentHTML('beforeend', renderCard(entry));
+      });
+    }
+  }
+
+  // Global delete handler
+  window.__fgDeleteEntry = function(id) {
+    const entries = getEntries().filter(e => e.id !== id);
+    saveEntries(entries);
+    renderAll();
+  };
+
+  // Initialise on DOM ready
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('food-guide-publish-form');
+    const clearBtn = document.getElementById('fg-clear-all-btn');
+    const errorEl = document.getElementById('fg-form-error');
+
+    // Render existing entries immediately (in case already authenticated)
+    renderAll();
+
+    // Also re-render whenever dashboard becomes visible (after login)
+    const dashObs = new MutationObserver(() => renderAll());
+    const dashEl = document.getElementById('dashboard-workspace-wrapper');
+    if (dashEl) dashObs.observe(dashEl, { attributes: true, attributeFilter: ['style'] });
+
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        errorEl.style.display = 'none';
+
+        const dishName     = document.getElementById('fg-dish-name').value.trim();
+        const category     = document.getElementById('fg-category').value;
+        const description  = document.getElementById('fg-description').value.trim();
+        const flavorProfile = document.getElementById('fg-flavor').value.trim();
+        const priceRange   = document.getElementById('fg-price').value;
+        const locations    = document.getElementById('fg-locations').value.trim();
+
+        if (!dishName || !category || !description || !flavorProfile || !priceRange || !locations) {
+          errorEl.textContent = 'All fields are required. Please complete the form.';
+          errorEl.style.display = 'block';
+          return;
+        }
+
+        const entry = { id: Date.now(), dishName, category, description, flavorProfile, priceRange, locations };
+        const entries = getEntries();
+        entries.unshift(entry); // newest first
+        saveEntries(entries);
+        renderAll();
+        form.reset();
+
+        // Success flash on button
+        const btn = document.getElementById('fg-submit-btn');
+        const original = btn.innerHTML;
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Published!';
+        btn.style.background = '#2e7d32';
+        setTimeout(() => { btn.innerHTML = original; btn.style.background = ''; }, 2000);
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function () {
+        if (confirm('Remove all published food guide entries? This cannot be undone.')) {
+          saveEntries([]);
+          renderAll();
+        }
+      });
+    }
+  });
+})();
 </script>
 <script src="js/script.js" defer></script>
 </body>
