@@ -26,6 +26,9 @@
   --accent-hover:         var(--color-mahogany-dark);
   --accent-secondary:     var(--color-teal);
   --accent-gold:          var(--color-gold);
+  --label-what:           var(--color-mahogany-dark);
+  --label-taste:          #9e671d;
+  --label-where:          var(--color-teal-dark);
   --border-color:         rgba(43, 33, 24, 0.1);
   --border-color-strong:  rgba(43, 33, 24, 0.2);
 
@@ -81,6 +84,9 @@
   --accent-hover:         #e07848;
   --accent-secondary:     #2fa8a2;
   --accent-gold:          #f0b44e;
+  --label-what:           #d4663a;
+  --label-taste:          #f0b44e;
+  --label-where:          #2fa8a2;
   --border-color:         rgba(240, 232, 220, 0.08);
   --border-color-strong:  rgba(240, 232, 220, 0.15);
   --shadow-sm:  0 1px 3px rgba(0,0,0,0.25);
@@ -370,6 +376,7 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
 .food-guide-card {
   display: grid;
   grid-template-columns: 500px 1fr;
+  align-items: center;
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -388,7 +395,7 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
 .food-guide-img {
   position: relative;
   width: 500px !important;
-  height: 100% !important;
+  height: 500px !important;
   flex-shrink: 0;
   overflow: hidden;
   background: #1a110b;
@@ -501,9 +508,9 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
   margin-bottom: 2px;
 }
 
-.food-info-label--what    { color: var(--accent); }
-.food-info-label--taste   { color: var(--accent-gold); }
-.food-info-label--where   { color: var(--accent-secondary); }
+.food-info-label--what    { color: var(--label-what); }
+.food-info-label--taste   { color: var(--label-taste); }
+.food-info-label--where   { color: var(--label-where); }
 .food-info-label--tip     { color: var(--color-mahogany-light); }
 
 .food-info-text p {
