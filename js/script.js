@@ -16,15 +16,6 @@
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
-  window.scrollTo(0, 0);
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
-  
-  document.querySelectorAll('.site-footer .brand span[style]').forEach(function (el) {
-    if (el.getAttribute('style').includes('color-white')) {
-      el.removeAttribute('style');
-    }
-  });
 
   var savedTheme = localStorage.getItem("theme");
   var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;

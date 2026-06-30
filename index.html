@@ -21,11 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- Non-blocking font stylesheet injection logic to maximize Performance metrics -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
-<noscript>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
-</noscript>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="css/style.css"></noscript>
@@ -165,7 +161,7 @@
       <div class="food-guide-list">
         <article class="food-guide-card reveal-up" id="lechon">
           <div class="food-guide-img">
-            <img src="images/recipe-cebu-lechon.webp" width="800" height="600" alt="Cebu lechon roasted to perfection with golden crisp skin" loading="lazy">
+            <img src="images/recipe-cebu-lechon.webp" width="800" height="600" alt="Cebu lechon roasted to perfection with golden crisp skin" fetchpriority="high">
             <span class="food-guide-badge">Premier Choice</span>
             <span class="food-guide-price">₱200–500 / portion</span>
           </div>
@@ -501,7 +497,7 @@
   <div class="footer-top">
     <div class="footer-brand">
       <a href="#hero" class="brand" aria-label="Lasa Sugbo home">
-        <span style="color:var(--color-white)">Lasa Sugbo</span>
+        <span>Lasa Sugbo</span>
       </a>
       <p style="color: #f7f2e7; margin-top: var(--space-sm); line-height: 1.6;">The definitive guide to navigating Cebu's culinary landscape.</p>
     </div>

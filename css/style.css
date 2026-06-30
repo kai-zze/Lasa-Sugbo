@@ -749,7 +749,8 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
   justify-content: flex-start;
 }
 
-.footer-brand-col .brand { 
+.footer-brand-col .brand,
+.footer-brand .brand { 
   color: var(--color-white) !important; 
   font-family: var(--font-display);
   font-size: var(--fs-xl);
