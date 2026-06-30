@@ -751,8 +751,8 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
    COMPLETE HIGH-STABILITY F-PATTERN FOOTER MATRIX
    ========================================================================== */
 .site-footer { 
-  background: var(--bg-footer); 
-  color: var(--color-bamboo); 
+  background: #2b2118; 
+  color: #d8c9ae; 
 }
 
 .footer-top {
@@ -774,7 +774,7 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
 
 .footer-brand-col .brand,
 .footer-brand .brand { 
-  color: var(--color-white) !important; 
+  color: #ffffff !important; 
   font-family: var(--font-display);
   font-size: var(--fs-xl);
   font-weight: 700;
@@ -787,7 +787,7 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
   font-weight: 700;
   text-transform: uppercase; 
   letter-spacing: 0.12em;
-  color: var(--accent-gold); 
+  color: #e8a33d; 
   margin-bottom: var(--space-md);
 }
 
@@ -801,13 +801,13 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
 
 .footer-col a {
   font-size: var(--fs-sm); 
-  color: var(--color-bamboo);
+  color: #d8c9ae;
   transition: color var(--duration) var(--ease);
   text-decoration: none;
 }
 
 .footer-col a:hover { 
-  color: var(--color-cream); 
+  color: #f7f2e7; 
 }
 
 .footer-bottom {
@@ -815,7 +815,7 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
   text-align: center; 
   padding: var(--space-lg);
   font-size: var(--fs-xs); 
-  color: var(--color-charcoal-soft);
+  color: #d8c9ae;
   font-family: var(--font-mono);
 }
 
