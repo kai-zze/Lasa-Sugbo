@@ -655,6 +655,9 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
   border-top: 1px solid var(--border-color);
 }
 
+/* ==========================================================================
+   NEWSLETTER FORMS SIGNUP COMPONENT RULES
+   ========================================================================== */
 .newsletter {
   background:
     radial-gradient(ellipse 70% 60% at 30% 50%, rgba(168,64,29,0.08), transparent),
@@ -720,45 +723,89 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
   align-items: center; justify-content: center;
 }
 
-.site-footer { background: var(--bg-footer); color: var(--color-bamboo); }
+/* ==========================================================================
+   COMPLETE HIGH-STABILITY F-PATTERN FOOTER MATRIX
+   ========================================================================== */
+.site-footer { 
+  background: var(--bg-footer); 
+  color: var(--color-bamboo); 
+}
 
 .footer-top {
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: var(--space-2xl); max-width: var(--container-wide);
-  margin: 0 auto; padding: var(--space-3xl) var(--space-lg);
+  display: grid; 
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: var(--space-2xl); 
+  max-width: var(--container-wide);
+  margin: 0 auto; 
+  padding: var(--space-3xl) var(--space-lg);
+  align-items: start;
+  text-align: left;
 }
 
-.footer-brand p {
-  margin-top: var(--space-md); font-size: var(--fs-sm);
-  line-height: 1.7; max-width: 36ch; color: var(--color-bamboo);
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
-.footer-brand .brand { color: var(--color-cream); }
+
+.footer-brand-col .brand { 
+  color: var(--color-white) !important; 
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  text-decoration: none;
+}
 
 .footer-col h3 {
-  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--accent-gold); margin-bottom: var(--space-md);
+  font-family: var(--font-mono); 
+  font-size: var(--fs-xs); 
+  font-weight: 700;
+  text-transform: uppercase; 
+  letter-spacing: 0.12em;
+  color: var(--accent-gold); 
+  margin-bottom: var(--space-md);
 }
-.footer-col ul { display: flex; flex-direction: column; gap: var(--space-sm); }
+
+.footer-col ul { 
+  display: flex; 
+  flex-direction: column; 
+  gap: var(--space-sm); 
+  padding: 0;
+  margin: 0;
+}
+
 .footer-col a {
-  font-size: var(--fs-sm); color: var(--color-bamboo);
+  font-size: var(--fs-sm); 
+  color: var(--color-bamboo);
   transition: color var(--duration) var(--ease);
+  text-decoration: none;
 }
-.footer-col a:hover { color: var(--color-cream); }
+
+.footer-col a:hover { 
+  color: var(--color-cream); 
+}
 
 .footer-bottom {
   border-top: 1px solid rgba(216,201,174,0.15);
-  text-align: center; padding: var(--space-lg);
-  font-size: var(--fs-xs); color: var(--color-charcoal-soft);
+  text-align: center; 
+  padding: var(--space-lg);
+  font-size: var(--fs-xs); 
+  color: var(--color-charcoal-soft);
   font-family: var(--font-mono);
 }
 
+/* ==========================================================================
+   ANIMATIONS CORE SCROLL TRIGGERS
+   ========================================================================== */
 .reveal-up {
   opacity: 0; transform: translateY(30px);
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
 }
 .reveal-up.is-revealed { opacity: 1; transform: translateY(0); }
 
+/* ==========================================================================
+   MEDIA RESPONSIVE BREAK GRID CONFIGURATIONS
+   ========================================================================== */
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
   .hero-content { max-width: none; }
@@ -767,15 +814,9 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
   .food-guide-img img { min-height: 240px; max-height: 340px; }
   .about-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
   .page-hero-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .contact-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .contact-info { max-width: none; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
-  
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-xl);
-  }
-  .contact-info {
-    max-width: none;
-  }
 }
 
 @media (max-width: 768px) {
@@ -787,10 +828,7 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
   .pasalubong-grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter-form { flex-direction: column; }
   .footer-top { grid-template-columns: 1fr; gap: var(--space-xl); }
-  
-  .form-embed-container {
-    border-radius: var(--radius-md);
-  }
+  .form-embed-container { border-radius: var(--radius-md); }
   .form-embed-container iframe {
     height: 1020px;
   }
@@ -799,6 +837,7 @@ h4 { font-size: var(--fs-md); font-weight: 600; }
 @media (max-width: 480px) {
   .container { padding: 0 var(--space-md); }
   .pasalubong-grid { grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+  .footer-top { grid-template-columns: 1fr; gap: var(--space-lg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

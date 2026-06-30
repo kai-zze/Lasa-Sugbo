@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control Dashboard — Lasa Sugbo</title>
+<meta name="description" content="Administrative control center node and database registry dashboard portal for Lasa Sugbo.">
+<meta name="theme-color" content="#2b2118">
+
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Non-blocking font stylesheet injection logic -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+</noscript>
+
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .admin-lockscreen {
+    background: #ede5d4;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2xl) var(--space-md);
+  }
+  .auth-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color-strong);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    width: 100%;
+    max-width: 440px;
+    box-shadow: var(--shadow-xl);
+  }
+  .admin-input-group {
+    margin-bottom: var(--space-lg);
+  }
+  .admin-input-field {
+    width: 100%;
+    padding: 0.8em 1em;
+    border: 2px solid var(--border-color-strong);
+    border-radius: var(--radius-sm);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: var(--fs-sm);
+    margin-top: var(--space-xs);
+    transition: border-color var(--duration) var(--ease);
+  }
+  .admin-input-field:focus {
+    border-color: var(--accent);
+    outline: none;
+  }
+  
+  /* High-Readability Native Table System (Zero Horizontal Scrolling) */
+  .native-table-card {
+    width: 100%;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--border-color-strong);
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    box-sizing: border-box;
+  }
+  .table-scroll-shield {
+    width: 100%;
+    overflow: hidden;
+  }
+  .dashboard-native-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-sm);
+    text-align: left;
+    table-layout: fixed;
+  }
+  .dashboard-native-table th {
+    background: var(--color-charcoal);
+    color: var(--color-white);
+    padding: var(--space-md) var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .dashboard-native-table td {
+    padding: var(--space-md) var(--space-sm);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    vertical-align: top;
+  }
+  .dashboard-native-table tr:nth-child(even) {
+    background: rgba(43, 33, 24, 0.02);
+  }
+  
+  .dashboard-info-panel {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+    border-bottom: 1px solid var(--border-color-strong);
+    padding-bottom: var(--space-xl);
+  }
+  @media (max-width: 992px) {
+    .dashboard-info-panel {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    .dashboard-native-table {
+      table-layout: auto;
+    }
+    .table-scroll-shield {
+      overflow-x: auto;
+    }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <nav class="navbar" aria-label="Primary">
+    <a href="index.html#hero" class="brand" aria-label="Lasa Sugbo home">
+      <span>Lasa Sugbo<small>Cebu Island Food Guide</small></span>
+    </a>
+    <ul class="nav-list">
+      <li><a href="index.html#hero">Home</a></li>
+      <li><a href="index.html#food-guide">Food Guide</a></li>
+      <li><a href="index.html#pasalubong">Pasalubong</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="admin-session-gate" class="btn btn-primary btn-sm" style="display: none; background: var(--color-mahogany)">Terminate Session</button>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-panel" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-panel" id="mobile-panel">
+    <a href="index.html#hero">Home</a>
+    <a href="index.html#food-guide">Food Guide</a>
+    <a href="index.html#pasalubong">Pasalubong</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- AUTHENTICATION SCREEN WRAPPER -->
+  <div id="auth-gate-wrapper" class="admin-lockscreen">
+    <section class="auth-card" aria-labelledby="auth-heading">
+      <div style="text-align: center; margin-bottom: var(--space-xl);">
+        <p class="eyebrow" style="color: var(--accent-secondary)">System Node Gate</p>
+        <h1 id="auth-heading" style="font-size: var(--fs-2xl); font-family: var(--font-display); margin-top: var(--space-xs)">Credential Verification</h1>
+      </div>
+      
+      <form id="secure-gate-form">
+        <div class="admin-input-group">
+          <label for="gate-uid" class="eyebrow" style="font-size: var(--fs-xs)">Identifier</label>
+          <input type="text" id="gate-uid" class="admin-input-field" required autocomplete="username">
+        </div>
+        <div class="admin-input-group" style="margin-bottom: var(--space-xl);">
+          <label for="gate-token" class="eyebrow" style="font-size: var(--fs-xs)">Security Key</label>
+          <input type="password" id="gate-token" class="admin-password admin-input-field" required autocomplete="current-password">
+        </div>
+        <div id="gate-error-log" style="color: var(--color-mahogany); font-family: var(--font-mono); font-size: var(--fs-xs); margin-bottom: var(--space-md); text-align: center; display: none; font-weight: 700;">
+          CRITICAL ERROR: Access Denied. Invalid parameters.
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Initialize Authorization</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- CORE DASHBOARD LAYOUT -->
+  <div id="dashboard-workspace-wrapper" style="display: none;">
+    <section class="section">
+      <div class="container" style="max-width: var(--container-wide);">
+        
+        <!-- Upper Panel: Context Details -->
+        <div class="dashboard-info-panel">
+          <div>
+            <p class="eyebrow" style="color: var(--accent-secondary)">Curation Backend Control</p>
+            <h2 style="font-family: var(--font-display); font-size: var(--fs-3xl); margin-top: var(--space-sm);">Live Feed Registry</h2>
+            <p class="section-intro" style="color: var(--text-secondary); margin-top: var(--space-md); line-height: 1.75; max-width: 75ch;">
+              Welcome back to your terminal node. We have replaced the restrictive iframe wrapper with a native data socket grid. Text cells now wrap automatically to fit your screen perfectly.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color-strong); border-radius: var(--radius-md); padding: var(--space-lg); width: 100%;">
+            <h3 style="font-family: var(--font-mono); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: var(--space-sm);">System Index</h3>
+            <ul style="font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; padding: 0; margin: 0;">
+              <li><strong>Database Target:</strong> Form Responses 1 Grid</li>
+              <li><strong>Interface Engine:</strong> Native CSS Grid Injection</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Lower Panel: Native, Scroll-Free Data Registry Table Card -->
+        <div class="native-table-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(43,33,24,0.1); padding-bottom:0.75rem; margin-bottom: 1rem;">
+            <h2 style="font-family:'Space Mono', monospace; font-size: 0.75rem; text-transform:uppercase; color: var(--text-primary); margin: 0; font-weight:700;">Live Feed Registry Streams</h2>
+            <span id="sync-indicator" style="font-size:0.75rem; font-family:'Space Mono', monospace; color: #2e7d32; font-weight: 700;">● Synchronized</span>
+          </div>
+          
+          <div class="table-scroll-shield">
+            <table class="dashboard-native-table">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 14%;">Timestamp</th>
+                  <th scope="col" style="width: 18%;">Contribution Type</th>
+                  <th scope="col" style="width: 15%;">Culinary Delicacy or Dish Name</th>
+                  <th scope="col" style="width: 15%;">Establishment / Venue Name</th>
+                  <th scope="col" style="width: 15%;">Location / Full Address</th>
+                  <th scope="col" style="width: 11%;">Price Range</th>
+                  <th scope="col" style="width: 12%;">Vetting Insights</th>
+                </tr>
+              </thead>
+              <tbody id="live-data-tbody">
+                <tr>
+                  <td colspan="7" style="text-align:center; color:var(--text-secondary); padding:3rem; font-family: var(--font-mono); font-size: var(--fs-xs);">Establishing connection channels...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand-col">
+      <a href="index.html#hero" class="brand" aria-label="Lasa Sugbo home">
+        <span>Lasa Sugbo</span>
+      </a>
+      <p style="color: #f7f2e7; font-size: var(--fs-sm); margin-top: var(--space-sm); max-width: 30ch; line-height: 1.5;">
+        Cebu's essential culinary map.
+      </p>
+    </div>
+    <nav class="footer-col" aria-label="Essential Guide">
+      <h3>Guide</h3>
+      <ul>
+        <li><a href="index.html#lechon">Lechon</a></li>
+        <li><a href="index.html#sutukil">Sutukil</a></li>
+        <li><a href="index.html#tuslob-buwa">Tuslob Buwa</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Additional Discoveries">
+      <h3>Additional</h3>
+      <ul>
+        <li><a href="index.html#ngohiong">Ngohiong</a></li>
+        <li><a href="index.html#ginabot">Ginabot</a></li>
+        <li><a href="index.html#pasalubong">Pasalubong</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Platform Information">
+      <h3>Platform</h3>
+      <ul>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="admin.html" style="font-weight: 600; color: var(--color-gold);">Admin Panel</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <!-- FIXED: Added explicit inline styling to clear the dark gray contrast flag completely -->
+    <p style="color: #d8c9ae !important;">&copy; 2026 Lasa Sugbo.</p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // --- Mobile Navigation Drawer Controls ---
+  const navToggle = document.querySelector(".nav-toggle");
+  const mobilePanel = document.querySelector(".mobile-panel");
+  if (mobilePanel && navToggle) {
+    navToggle.addEventListener('click', () => {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+      mobilePanel.classList.toggle('is-open');
+    });
+  }
+
+  // --- Authentication System Elements ---
+  const authWrapper = document.getElementById('auth-gate-wrapper');
+  const dashboardWrapper = document.getElementById('dashboard-workspace-wrapper');
+  const secureForm = document.getElementById('secure-gate-form');
+  const sessionBtn = document.getElementById('admin-session-gate');
+  const errorLog = document.getElementById('gate-error-log');
+  const dataTbody = document.getElementById('live-data-tbody');
+
+  const TARGET_UID = "admin";
+  const TARGET_PASS = "sugbo2026";
+  
+  const GOOGLE_SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTR1Jg-FbInHAU3ykayUZncrK7JHQ0PupBF91Q6WJWLsb4WCleSC8Ry8T5opVM6lf7tqWMFSO8psv9B/pub?gid=109563913&single=true&output=csv";
+
+  if (sessionStorage.getItem('adminAuthorized') === 'true') {
+    renderAuthenticatedDashboard();
+  }
+
+  secureForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const inputUser = document.getElementById('gate-uid').value;
+    const inputPass = document.getElementById('gate-token').value;
+
+    if (inputUser === TARGET_UID && inputPass === TARGET_PASS) {
+      sessionStorage.setItem('adminAuthorized', 'true');
+      renderAuthenticatedDashboard();
+    } else {
+      errorLog.style.display = 'block';
+    }
+  });
+
+  if (sessionBtn) {
+    sessionBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('adminAuthorized');
+      window.location.reload();
+    });
+  }
+
+  function renderAuthenticatedDashboard() {
+    authWrapper.style.display = 'none';
+    dashboardWrapper.style.display = 'block';
+    sessionBtn.style.display = 'inline-flex';
+    fetchSpreadsheetRawData();
+  }
+
+  // --- Live Asynchronous Stream Engine ---
+  async function fetchSpreadsheetRawData() {
+    try {
+      const response = await fetch(GOOGLE_SHEET_CSV);
+      const csvText = await response.text();
+      parseAndInjectCSV(csvText);
+    } catch (err) {
+      console.error("Pipeline breakdown:", err);
+      dataTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--accent); padding:2rem;">Data synchronization failed. Retrying...</td></tr>`;
+    }
+  }
+
+  function parseAndInjectCSV(csvText) {
+    const lines = csvText.split('\n');
+    let htmlContent = '';
+
+    for (let i = 1; i < lines.length; i++) {
+      if (!lines[i].trim()) continue;
+
+      const columns = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+      const cleanCols = columns.map(col => col.replace(/^"|"$/g, '').trim());
+
+      htmlContent += `
+        <tr>
+          <td>${cleanCols[0] || '—'}</td>
+          <td style="color: var(--accent-secondary); font-weight: 500;">${cleanCols[2] || '—'}</td>
+          <td style="font-weight: 700; color: var(--text-primary);">${cleanCols[3] || '—'}</td>
+          <td>${cleanCols[4] || '—'}</td>
+          <td>${cleanCols[5] || '—'}</td>
+          <td style="font-weight: 600; color: var(--accent);">${cleanCols[6] || '—'}</td>
+          <td style="font-style: italic; font-size: var(--fs-xs); color: var(--text-secondary);">${cleanCols[7] || '—'}</td>
+        </tr>`;
+    }
+
+    dataTbody.innerHTML = htmlContent || `<tr><td colspan="7" style="text-align:center; padding:2rem;">No responses found in active sheet registry.</td></tr>`;
+  }
+});
+</script>
+</body>
+</html>

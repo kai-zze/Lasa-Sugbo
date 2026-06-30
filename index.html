@@ -20,7 +20,13 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Non-blocking font stylesheet injection logic to maximize Performance metrics -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+</noscript>
+
 <link rel="stylesheet" href="css/style.css">
 
 <script type="application/ld+json">
@@ -32,19 +38,69 @@
   "description": "An essential tourist food guide highlighting Cebu's renowned local dishes."
 }
 </script>
+<style>
+  /* Fixes the newsletter module so it doesn't crowd against the top of the footer */
+  .newsletter {
+    padding-bottom: 6.5rem !important;
+  }
+
+  /* 
+     ==========================================================================
+     CRITICAL LIGHTHOUSE 100% ACCESSIBILITY CONTRAST OVERRIDES
+     ==========================================================================
+  */
+
+  /* Fixes interactive button backgrounds flagged in the audit logs */
+  header.site-header .nav-actions #contact-toggle,
+  .newsletter-inner .newsletter-form .btn {
+    background-color: #9e370d !important; /* Premium deep terracotta that passes WCAG AA contrast ratio parameters cleanly */
+    color: #ffffff !important;
+  }
+
+  /* Fixes card location headers over dark brown backgrounds */
+  .food-guide-body .eyebrow {
+    color: #f5c27d !important; /* Warm light gold tint that hits optimal contrast readability scores */
+    font-weight: 700 !important;
+  }
+
+  /* Fixes interior list label headers flagged across all items */
+  .food-info-label {
+    color: #f7f2e7 !important; /* High contrast soft linen cream color */
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Fixes callout box text element structures */
+  .food-tip {
+    background-color: #f4f0e6 !important; /* Opaque container backdrop */
+    color: #1a110b !important; /* Solid dark text contrast layer */
+    border-left: 4px solid #704214 !important;
+    padding: 1rem !important;
+    border-radius: 4px !important;
+  }
+  
+  .food-tip strong {
+    color: #4a2711 !important;
+  }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <header class="site-header">
   <nav class="navbar" aria-label="Primary">
-    <a href="#hero" class="brand" aria-label="Lasa Sugbo home">
+    <!-- FIXED: Extended label matching interior text completely to address label-content-name-mismatch -->
+    <a href="#hero" class="brand" aria-label="Lasa Sugbo — Cebu Island Food Guide">
       <span>Lasa Sugbo<small>Cebu Island Food Guide</small></span>
     </a>
     <ul class="nav-list">
       <li><a href="#hero" class="is-active">Home</a></li>
       <li class="nav-dropdown">
-        <a href="#food-guide" aria-haspopup="true">Food Guide ▾</a>
+        <a href="#food-guide" aria-haspopup="true" style="display: inline-flex; align-items: center; gap: 0.25em;">
+          Food Guide
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" style="margin-top: 2px;"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
         <div class="nav-dropdown-panel">
           <a href="#lechon">Lechon Cebu <span>Signature roasted delicacy</span></a>
           <a href="#sutukil">Sutukil <span>Fresh seafood dining</span></a>
@@ -106,7 +162,6 @@
       </div>
 
       <div class="food-guide-list">
-
         <article class="food-guide-card reveal-up" id="lechon">
           <div class="food-guide-img">
             <img src="images/recipe-cebu-lechon.webp" width="800" height="600" alt="Cebu lechon roasted to perfection with golden crisp skin" loading="lazy">
@@ -326,7 +381,6 @@
             </div>
           </div>
         </article>
-
       </div>
     </div>
   </section>
@@ -391,7 +445,6 @@
   <section class="section section--alt collapse-portal" id="contact">
     <div class="container">
       <div class="contact-grid">
-        
         <div class="contact-info">
           <p class="eyebrow">Correspondence</p>
           <h2>Contribute to the Guide</h2>
@@ -421,7 +474,6 @@
             loading="lazy"
           >Loading integration portal…</iframe>
         </div>
-
       </div>
     </div>
   </section>
@@ -451,7 +503,7 @@
       <a href="#hero" class="brand" aria-label="Lasa Sugbo home">
         <span style="color:var(--color-white)">Lasa Sugbo</span>
       </a>
-      <p>The definitive guide to navigating Cebu's culinary landscape.</p>
+      <p style="color: #f7f2e7; margin-top: var(--space-sm); line-height: 1.6;">The definitive guide to navigating Cebu's culinary landscape.</p>
     </div>
     <nav class="footer-col" aria-label="Essential Guide">
       <h3>Guide</h3>
@@ -470,15 +522,16 @@
       </ul>
     </nav>
     <nav class="footer-col" aria-label="Platform Information">
-      <h3>Lasa Sugbo</h3>
+      <h3>Platform</h3>
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="admin.html" style="font-weight: 600; color: var(--color-gold);">Admin Panel</a></li>
       </ul>
     </nav>
   </div>
   <div class="footer-bottom">
-    <p>&copy; <span id="year">2026</span> Lasa Sugbo.</p>
+    <p style="color: #d8c9ae !important;">&copy; <span id="year">2026</span> Lasa Sugbo.</p>
   </div>
 </footer>
 
@@ -514,4 +567,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <script src="js/script.js" defer></script>
 </body>
-</html>  
+</html>
