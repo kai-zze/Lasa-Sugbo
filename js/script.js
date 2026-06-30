@@ -43,7 +43,8 @@
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
       </svg>
     `;
-    navActions.insertBefore(themeToggle, navActions.firstChild);
+    var navToggleBtn = navActions.querySelector(".nav-toggle");
+    navActions.insertBefore(themeToggle, navToggleBtn || null);
 
     themeToggle.addEventListener("click", function () {
       var current = document.documentElement.getAttribute("data-theme");
