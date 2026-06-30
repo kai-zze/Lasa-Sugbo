@@ -150,7 +150,11 @@
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
     <div class="nav-actions">
-      <button id="admin-session-gate" class="btn btn-primary btn-sm" style="display: none; background: var(--color-mahogany)">Terminate Session</button>
+      <button id="admin-session-gate" class="btn btn-primary btn-sm" style="display: none; background: var(--color-mahogany)" aria-label="Terminate admin session">Terminate Session</button>
+      <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle colour theme" title="Toggle dark/light mode">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
       <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-panel" aria-label="Open menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
       </button>
@@ -169,27 +173,27 @@
 
   <!-- AUTHENTICATION SCREEN WRAPPER -->
   <div id="auth-gate-wrapper" class="admin-lockscreen">
-    <section class="auth-card" aria-labelledby="auth-heading">
+    <div class="auth-card" aria-labelledby="auth-heading" role="region">
       <div style="text-align: center; margin-bottom: var(--space-xl);">
         <p class="eyebrow" style="color: var(--accent-secondary)">System Node Gate</p>
         <h1 id="auth-heading" style="font-size: var(--fs-2xl); font-family: var(--font-display); margin-top: var(--space-xs)">Credential Verification</h1>
       </div>
       
-      <form id="secure-gate-form">
+      <form id="secure-gate-form" novalidate>
         <div class="admin-input-group">
           <label for="gate-uid" class="eyebrow" style="font-size: var(--fs-xs)">Identifier</label>
-          <input type="text" id="gate-uid" class="admin-input-field" required autocomplete="username">
+          <input type="text" id="gate-uid" class="admin-input-field" required autocomplete="username" placeholder="Enter your username">
         </div>
         <div class="admin-input-group" style="margin-bottom: var(--space-xl);">
           <label for="gate-token" class="eyebrow" style="font-size: var(--fs-xs)">Security Key</label>
-          <input type="password" id="gate-token" class="admin-password admin-input-field" required autocomplete="current-password">
+          <input type="password" id="gate-token" class="admin-password admin-input-field" required autocomplete="current-password" placeholder="Enter your password">
         </div>
-        <div id="gate-error-log" style="color: var(--color-mahogany); font-family: var(--font-mono); font-size: var(--fs-xs); margin-bottom: var(--space-md); text-align: center; display: none; font-weight: 700;">
-          CRITICAL ERROR: Access Denied. Invalid parameters.
+        <div id="gate-error-log" role="alert" aria-live="polite" style="color: var(--color-mahogany); font-family: var(--font-mono); font-size: var(--fs-xs); margin-bottom: var(--space-md); text-align: center; display: none; font-weight: 700;">
+          Access denied. Invalid credentials. Please try again.
         </div>
         <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Initialize Authorization</button>
       </form>
-    </section>
+    </div>
   </div>
 
   <!-- CORE DASHBOARD LAYOUT -->
@@ -203,7 +207,7 @@
             <p class="eyebrow" style="color: var(--accent-secondary)">Curation Backend Control</p>
             <h2 style="font-family: var(--font-display); font-size: var(--fs-3xl); margin-top: var(--space-sm);">Live Feed Registry</h2>
             <p class="section-intro" style="color: var(--text-secondary); margin-top: var(--space-md); line-height: 1.75; max-width: 75ch;">
-              Welcome back to your terminal node. We have replaced the restrictive iframe wrapper with a native data socket grid. Text cells now wrap automatically to fit your screen perfectly.
+              Review and moderate user-submitted culinary recommendations from the public contact form. All submissions are fetched live from the connected registry spreadsheet.
             </p>
           </div>
 
@@ -215,12 +219,11 @@
             </ul>
           </div>
         </div>
-
         <!-- Lower Panel: Native, Scroll-Free Data Registry Table Card -->
         <div class="native-table-card">
           <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:0.75rem; margin-bottom: 1rem;">
-            <h2 style="font-family:'Space Mono', monospace; font-size: 0.75rem; text-transform:uppercase; color: var(--text-primary); margin: 0; font-weight:700;">Live Feed Registry Streams</h2>
-            <span id="sync-indicator" style="font-size:0.75rem; font-family:'Space Mono', monospace; color: #2e7d32; font-weight: 700;">● Synchronized</span>
+            <h3 style="font-family:'Space Mono', monospace; font-size: 0.75rem; text-transform:uppercase; color: var(--text-primary); margin: 0; font-weight:700;">Live Feed Registry Streams</h3>
+            <span id="sync-indicator" aria-live="polite" style="font-size:0.75rem; font-family:'Space Mono', monospace; color: #2e7d32; font-weight: 700;">&#9679; Synchronized</span>
           </div>
           
           <div class="table-scroll-shield">
@@ -254,7 +257,7 @@
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--space-xl);">
             <div>
               <p class="eyebrow" style="color: var(--accent-secondary)">Content Management</p>
-              <h2 style="font-family: var(--font-display); font-size: var(--fs-2xl); margin-top: var(--space-xs);">Publish to Food Guide</h2>
+              <h3 style="font-family: var(--font-display); font-size: var(--fs-2xl); margin-top: var(--space-xs);">Publish to Food Guide</h3>
               <p style="color: var(--text-secondary); margin-top: var(--space-sm); font-size: var(--fs-sm); max-width: 65ch;">Add a new culinary entry to the public-facing Cebu food guide. Published entries are saved locally and displayed as live preview cards below.</p>
             </div>
           </div>
