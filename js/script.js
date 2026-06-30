@@ -131,26 +131,4 @@
     });
   }
 
-  // Ken Burns slow zoom on hero background image
-  var heroBgImg = document.querySelector(".hero-bg img");
-  if (heroBgImg) {
-    setTimeout(function () {
-      heroBgImg.style.transform = "scale(1)";
-    }, 100);
-  }
-
-  // Make site-header transparent when over the full-screen hero
-  var heroSection = document.getElementById("hero");
-  if (heroSection && header) {
-    var heroObserver = new IntersectionObserver(
-      function(entries) {
-        var inHero = entries[0].isIntersecting;
-        header.style.background = inHero ? "transparent" : "";
-        header.style.borderBottomColor = inHero ? "transparent" : "";
-        header.style.backdropFilter = inHero ? "none" : "";
-      },
-      { threshold: 0.1 }
-    );
-    heroObserver.observe(heroSection);
-  }
 })();
