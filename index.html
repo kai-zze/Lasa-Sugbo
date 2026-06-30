@@ -140,14 +140,28 @@
 <main id="main">
 
   <section class="hero" id="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-content reveal-up">
-          <p class="eyebrow">Culinary Exploration Guide</p>
-          <h1>Discover Cebu's Rich Gastronomic Heritage</h1>
-          <p class="lede">Embark on a refined journey through Cebu's vibrant food scene. Explore the robust flavors, historic cooking traditions, and top culinary destinations that make the island a food lover's paradise.</p>
-        </div>
+    <!-- Full-screen background image with dark overlay -->
+    <div class="hero-bg" aria-hidden="true">
+      <img src="images/cebu-lechon.webp" alt="" width="1920" height="1080" fetchpriority="high">
+    </div>
+
+    <!-- Centered hero content -->
+    <div class="hero-grid">
+      <div class="hero-content reveal-up">
+        <p class="eyebrow">Culinary Exploration Guide</p>
+        <h1>Discover Cebu's Rich Gastronomic Heritage</h1>
+        <p class="lede">Your definitive guide to the island's most iconic dishes — from smoky street-side lechon to the freshest seafood on the coast.</p>
       </div>
+      <div class="hero-actions reveal-up">
+        <a href="#food-guide" class="btn btn-primary btn-lg">Explore the Guide</a>
+        <a href="#contact" class="btn btn-lg" style="background: rgba(255,255,255,0.12); color: #fff; border: 2px solid rgba(255,255,255,0.35); backdrop-filter: blur(8px);">Contribute</a>
+      </div>
+    </div>
+
+    <!-- Animated scroll indicator -->
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
     </div>
   </section>
 
