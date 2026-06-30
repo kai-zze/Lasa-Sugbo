@@ -13,6 +13,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Control Dashboard — Lasa Sugbo</title>
 <meta name="description" content="Administrative control center node and database registry dashboard portal for Lasa Sugbo.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.lasasugbo.com/admin.html">
 <meta name="theme-color" content="#2b2118">
 
 <link rel="icon" href="favicon.png" type="image/png">
@@ -397,17 +399,6 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // --- Mobile Navigation Drawer Controls ---
-  const navToggle = document.querySelector(".nav-toggle");
-  const mobilePanel = document.querySelector(".mobile-panel");
-  if (mobilePanel && navToggle) {
-    navToggle.addEventListener('click', () => {
-      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', !isExpanded);
-      mobilePanel.classList.toggle('is-open');
-    });
-  }
-
   // --- Authentication System Elements ---
   const authWrapper = document.getElementById('auth-gate-wrapper');
   const dashboardWrapper = document.getElementById('dashboard-workspace-wrapper');
