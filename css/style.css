@@ -2,28 +2,28 @@
   font-family: 'Fraunces';
   font-style: normal;
   font-weight: 500 700;
-  font-display: swap;
+  font-display: optional;
   src: url('../fonts/fraunces.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Space Mono';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url('../fonts/spacemono-regular.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Space Mono';
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
+  font-display: optional;
   src: url('../fonts/spacemono-bold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Work Sans';
   font-style: normal;
   font-weight: 400 700;
-  font-display: swap;
+  font-display: optional;
   src: url('../fonts/worksans.woff2') format('woff2');
 }
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lasa-sugbo-v2';
+const CACHE_NAME = 'lasa-sugbo-v3';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -10,7 +10,6 @@ const PRECACHE_ASSETS = [
   './fonts/worksans.woff2'
 ];
 
-// On install, precache core assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -19,7 +18,6 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Clean up old caches and claim clients immediately
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -32,30 +30,45 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Cache first strategy for fonts and images, stale-while-revalidate for others
+// Helper function to add long cache headers to a response
+function withCacheHeaders(response) {
+  const newHeaders = new Headers(response.headers);
+  newHeaders.set('Cache-Control', 'public, max-age=31536000, immutable');
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: newHeaders
+  });
+}
+
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Check if it's a local asset in fonts/ or images/
-  if (url.origin === self.location.origin && (url.pathname.includes('/fonts/') || url.pathname.includes('/images/'))) {
+  // Apply cache-first with synthesized Cache-Control headers for all static assets
+  if (url.origin === self.location.origin && 
+      (url.pathname.includes('/fonts/') || 
+       url.pathname.includes('/images/') || 
+       url.pathname.includes('/css/') || 
+       url.pathname.includes('/js/'))) {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         if (cachedResponse) {
-          return cachedResponse;
+          return withCacheHeaders(cachedResponse);
         }
         return fetch(event.request).then((networkResponse) => {
           if (!networkResponse || networkResponse.status !== 200) {
             return networkResponse;
           }
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
           });
+          return withCacheHeaders(networkResponse);
         });
       })
     );
   } else {
-    // Default Stale-While-Revalidate for other precached assets
+    // Default Stale-While-Revalidate for other precached assets like index.html
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         const fetchPromise = fetch(event.request).then((networkResponse) => {
@@ -65,9 +78,7 @@ self.addEventListener('fetch', (event) => {
             });
           }
           return networkResponse;
-        }).catch(() => {
-          // Ignore offline fetch errors if we have cache
-        });
+        }).catch(() => {});
         return cachedResponse || fetchPromise;
       })
     );
