@@ -23,8 +23,8 @@
 <link rel="preload" href="fonts/spacemono-bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/worksans.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="preload" href="css/style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="css/style.min.css"></noscript>
+<link rel="stylesheet" href="css/style.min.css">
+<link rel="preload" href="images/hero-cebu-food-520.webp" as="image" imagesrcset="images/hero-cebu-food-520.webp 520w, images/hero-cebu-food-780.webp 780w, images/hero-cebu-food-1040.webp 1040w" imagesizes="(max-width: 991px) 90vw, 520px" type="image/webp">
 
 <script type="application/ld+json">
 {
@@ -149,7 +149,13 @@
 
         <!-- RIGHT: Featured image -->
         <div class="hero-visual reveal-up">
-          <img src="images/hero-cebu-food.webp" alt="An illustrated vintage travel postcard map of Cebu Island featuring local food icons like lechon and seafood" width="520" height="520" fetchpriority="high">
+          <img src="images/hero-cebu-food.webp" 
+               srcset="images/hero-cebu-food-520.webp 520w, images/hero-cebu-food-780.webp 780w, images/hero-cebu-food-1040.webp 1040w"
+               sizes="(max-width: 991px) 90vw, 520px"
+               alt="An illustrated vintage travel postcard map of Cebu Island featuring local food icons like lechon and seafood" 
+               width="520" 
+               height="520" 
+               fetchpriority="high">
           <span class="hero-visual-badge">Cebu Island &mdash; Travel Postcard Map</span>
         </div>
 
